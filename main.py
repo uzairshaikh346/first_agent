@@ -8,18 +8,7 @@ load_dotenv()
 
 gemini_api_key = os.getenv("GEMINI_API_KEY")
 
-# === Tool Function ===
-@function_tool
-def getInfoOfUzair(Name: str) -> str:
-    """Provides professional details of Muhammad Uzair."""
-    if Name.lower() != "muhammad uzair":
-        return "Sorry, I only provide info about Muhammad Uzair."
-    
-    return (
-        "Muhammad Uzair is a skilled Full Stack Developer from Karachi. "
-        "He has experience with Next.js, React, Tailwind CSS, AI integration, and cloud-native development. "
-        "LinkedIn: https://www.linkedin.com/in/muhammad-uzair-2526732a6/"
-    )
+
 
 # === Gemini API Client (OpenAI-Compatible Wrapper) ===
 client = AsyncOpenAI(
@@ -35,14 +24,11 @@ model = OpenAIChatCompletionsModel(
 
 # === Agent ===
 agent = Agent(
-    name="Uzair Info Provider",
+    name="Translator Agent",
     instructions=(
-        "You are an assistant that provides accurate and professional details about Muhammad Uzair. "
-        "Use the provided tools to help answer user queries."
+        "You are a Translator Agent. You translate Urdu info english and english into urdu"
     ),
-    model=model,
-    tools=[getInfoOfUzair],
-)
+    model=model,)
 
 # === Run Config ===
 config = RunConfig(
